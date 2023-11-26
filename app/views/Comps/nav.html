@@ -1,0 +1,52 @@
+<nav
+  class="navbar bg-dark navbar-expand-lg bg-body-tertiary py-2 mb-3"
+  data-bs-theme="dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">
+      <h1 style="margin: 0; font-size: 30px">StoryBook</h1></a
+    >
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup"
+      aria-expanded="false"
+      aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div
+        class="navbar-nav"
+        style="display: flex; justify-content: space-between; width: 100%">
+        <div class="navbar-nav">
+          <a class="nav-link" href="@{KaryaApplication.index()}">Karya</a>
+          <a class="nav-link" href="@{Application.index()}">Play Docs</a>
+          #{secure.check 'admin'}
+          <a class="nav-link" href="/admin">Admin</a>
+          #{/secure.check}
+        </div>
+        <div
+          class="d-flex"
+          role="search"
+          style="justify-content: center; align-items: center">
+          #{if !controllers.Security.isConnected()}
+          <a href="@{Secure.login()}" style="margin-right: 5px">
+            <button type="button" class="btn btn-success">Log In</button></a
+          >
+          <a href="@{Application.signup()}" style="margin-left: 5px">
+            <button type="button" class="btn btn-success">Sign Up</button></a
+          >
+          #{/if} #{else}
+          <h4 style="color: white; margin-right: 20px; margin-bottom: 0">
+            ${controllers.Security.dapatkanNama()}
+          </h4>
+          <a href="@{Secure.logout()}">
+            <button type="button" class="btn btn-danger">Log Out</button></a
+          >
+          #{/else}
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

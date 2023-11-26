@@ -1,0 +1,26 @@
+#{extends 'layout.html' /} #{set title:'Episode ' + episode.no_eps + ": " +
+episode.judul /}
+
+<h1>${karya.judul}</h1>
+<h2>Episode ${episode.no_eps}: ${episode.judul}</h2>
+<a href="@{KaryaApplication.show(karya.id)}">Kembali ke Karya</a>
+<p>
+  <b>Genre: ${karya.genre}</b><br />
+  <b>Author: ${karya.user}</b>
+</p>
+<p id="cerita">${episode.cerita}</p>
+<div id="output" style="text-align: justify"></div>
+<script>
+  // Assuming you're using JavaScript to handle the form submission
+  var inputText = document.getElementById("cerita");
+  inputText.style.display = "none";
+
+  // Display the input text as paragraphs
+  var outputDiv = document.getElementById("output");
+  var paragraphs = inputText.innerHTML.split("\n");
+  paragraphs.forEach(function (paragraph) {
+    var p = document.createElement("p");
+    p.textContent = paragraph;
+    outputDiv.appendChild(p);
+  });
+</script>

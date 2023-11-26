@@ -1,0 +1,77 @@
+#{extends 'Secure/layout.html' /}
+
+<div id="login">
+  <!-- <h1>&{'secure.title'}</h1> -->
+  <h1>Login</h1>
+
+  <!-- #{form @authenticate()} #{if flash.error}
+  <p class="error">${messages.get(flash.error)}</p>
+  #{/if} #{if flash.success}
+  <p class="success">${messages.get(flash.success)}</p>
+  #{/if}
+
+  <p id="username-field">
+    <label for="username">&{'secure.username'}</label>
+    <input
+      type="text"
+      name="username"
+      id="username"
+      value="${flash.username}" />
+  </p>
+  <p id="password-field">
+    <label for="password">&{'secure.password'}</label>
+    <input type="password" name="password" id="password" value="" />
+  </p>
+  <p id="remember-field">
+    <input type="checkbox" name="remember" id="remember" value="true"
+    ${flash.remember ? 'checked="true"' : ''} />
+    <label for="remember">&{'secure.remember'}</label>
+  </p>
+  <p id="signin-field">
+    <input type="submit" id="signin" value="&{'secure.signin'}" />
+  </p>
+  #{/form} -->
+
+  <!-- Custom Layout -->
+  #{form @authenticate()} #{if flash.error}
+  <div class="alert alert-danger" role="alert">
+    ${messages.get(flash.error)}
+  </div>
+  #{/if} #{if flash.success}
+  <div class="alert alert-success" role="alert">
+    ${messages.get(flash.success)}
+  </div>
+  #{/if}
+
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label"
+      >&{'secure.username'}</label
+    >
+    <input
+      type="text"
+      class="form-control"
+      id="username"
+      name="username"
+      value="${flash.username}"
+      aria-describedby="emailHelp" />
+    <div id="emailHelp" class="form-text">Masukkan username dengan benar</div>
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Password</label>
+    <input
+      type="password"
+      class="form-control"
+      id="exampleInputPassword1"
+      name="password" />
+  </div>
+  <div class="mb-3 form-check d-flex justify-content-between">
+    <div>
+      <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+      <label class="form-check-label" for="exampleCheck1">Remember Me</label>
+    </div>
+    <p>Belum punya akun? <a href="@{Application.signup()}">Registrasi</a></p>
+  </div>
+  <button type="submit" class="btn btn-primary">&{'secure.signin'}</button>
+  <!-- <input type="submit" id="signin" value="&{'secure.signin'}" /> -->
+  #{/form}
+</div>

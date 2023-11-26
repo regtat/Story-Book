@@ -1,0 +1,54 @@
+#{extends 'layout.html' /} #{set title:'Karya-karya' /}
+
+<style>
+  .card-container {
+    /* margin-right: 10px; */
+    row-gap: 10px;
+    column-gap: 10px;
+  }
+</style>
+
+<h1>Karya</h1>
+<a href="@{KaryaApplication.create()}">
+  <button type="button" class="btn btn-primary mb-2">Buat Karya Baru</button>
+</a>
+#{if karyas.size() > 0}
+<div
+  class="card-container"
+  style="display: flex; padding: 0; justify-content: start; flex-wrap: wrap">
+  #{list items:karyas, as:'karya'}
+  <div class="card" style="width: 18rem; height: 248px">
+    <div
+      class="card-body"
+      style="
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      ">
+      <div>
+        <h5 class="card-title">${karya.judul}</h5>
+        <h6 class="card-subtitle mb-2 text-body-secondary">
+          Author: ${karya.user.fullname}
+        </h6>
+        <h6 class="card-subtitle mb-2 text-body-secondary">
+          Genre: ${karya.genre.genre}
+        </h6>
+        #{if karya.deskripsi.length() > 100} %{ karya.deskripsi =
+        karya.deskripsi.substring(0, 99) }% #{/if}
+        <p class="card-text" style="text-align: justify">${karya.deskripsi}</p>
+      </div>
+      <a
+        href="@{KaryaApplication.show(karya.id)}"
+        class="card-link"
+        style="width: fit-content"
+        >Baca</a
+      >
+    </div>
+  </div>
+  #{/list}
+</div>
+#{/if} #{else}
+<div class="alert alert-danger" role="alert">
+  Tidak ada Cerita yang bisa dibaca!
+</div>
+#{/else}

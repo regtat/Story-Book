@@ -1,0 +1,159 @@
+#{extends 'layout.html' /} #{set title:karya.judul /}
+
+<style>
+  #deskripsi {
+    text-align: justify;
+  }
+</style>
+
+<h1>${karya.judul}</h1>
+<h3>Author: ${karya.user.fullname}</h3>
+#{if karya.user == user}
+<a href="@{KaryaApplication.edit(karya.id)}">
+  <button type="button" class="btn btn-primary mb-2">Edit</button> </a
+><a href="@{EpisodeApplication.create(karya.id)}">
+  <button type="button" class="btn btn-primary mb-2">
+    Tambah Episode Baru
+  </button>
+</a>
+<a>
+  <button
+    type="button"
+    class="btn btn-danger delete-button mb-2"
+    data-bs-toggle="modal"
+    onclick="deleteEpisode()"
+    data-bs-target="#karya">
+    Hapus
+  </button>
+
+  <div
+    class="modal fade"
+    id="karya"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">
+            ${karya.judul}
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <b>Apakah anda yakin ingin menghapus</b> <br />
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal">
+            Close
+          </button>
+          <a href="@{KaryaApplication.delete(karya.id)}">
+            <button type="button" class="btn btn-danger">Hapus</button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</a>
+#{/if}
+<p><b>Genre: ${karya.genre.genre}</b></p>
+<p id="deskripsi">${karya.deskripsi}</p>
+<div id="output" style="text-align: justify"></div>
+#{if episodes.size() > 0}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Judul Episode</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    #{list items:episodes, as:'episode'}
+    <tr>
+      <th scope="row">${episode.no_eps}</th>
+      <td>${episode.judul}</td>
+      <td>
+        <a href="@{EpisodeApplication.show(episode.id)}">
+          <button type="button" class="btn btn-info btn-sm">Baca</button>
+        </a>
+        #{if karya.user == user}
+        <a href="@{EpisodeApplication.edit(episode.id)}">
+          <button type="button" class="btn btn-warning btn-sm">Edit</button>
+        </a>
+        <button
+          type="button"
+          class="btn btn-danger btn-sm delete-button"
+          data-bs-toggle="modal"
+          value="${episode.id}"
+          onclick="deleteEpisode()"
+          data-bs-target="#eps${episode.id}">
+          Hapus
+        </button>
+
+        <div
+          class="modal fade"
+          id="eps${episode.id}"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">
+                  Episode ${episode.no_eps}: ${episode.judul}
+                </h1>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <b>Apakah anda yakin ingin menghapus</b> <br />
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal">
+                  Close
+                </button>
+                <a href="@{EpisodeApplication.delete(episode.id)}">
+                  <button type="button" class="btn btn-danger">Hapus</button>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        #{/if}
+      </td>
+    </tr>
+    #{/list}
+  </tbody>
+</table>
+#{/if} #{else}
+<div class="alert alert-danger" role="alert">Tidak ada Episode!</div>
+#{/else}
+
+<script>
+  // Assuming you're using JavaScript to handle the form submission
+  var inputText = document.getElementById("deskripsi");
+  inputText.style.display = "none";
+
+  // Display the input text as paragraphs
+  var outputDiv = document.getElementById("output");
+  var paragraphs = inputText.innerHTML.split("\n");
+  paragraphs.forEach(function (paragraph) {
+    var p = document.createElement("p");
+    p.textContent = paragraph;
+    outputDiv.appendChild(p);
+  });
+</script>

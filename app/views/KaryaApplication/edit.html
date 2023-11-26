@@ -1,0 +1,49 @@
+#{extends 'layout.html' /} #{set title:'Edit: ' + karya.judul /}
+
+<h1>Edit Karya</h1>
+<a href="@{KaryaApplication.show(karya.id)}">Kembali ke view</a>
+<form name="karya" action="@{KaryaApplication.save()}" method="POST">
+  <div class="mb-3">
+    <label for="nama" class="form-label">Judul</label>
+    <input
+      type="text"
+      class="form-control"
+      id="nama"
+      name="karya.judul"
+      value="${karya.judul}"
+      required />
+    <div id="emailHelp" class="form-text">Masukkan Judul yang diinginkan!</div>
+  </div>
+  <div class="mb-3">
+    <label for="deskripsi" class="form-label">Deskripsi</label>
+    <textarea
+      class="form-control"
+      placeholder="Leave a comment here"
+      id="deskripsi"
+      name="karya.deskripsi"
+      style="height: 200px"
+      value="${karya.deskripsi}"
+      required>
+${karya.deskripsi}</textarea
+    >
+    <div id="emailHelp" class="form-text">Masukkan deskripsi!</div>
+  </div>
+  <div class="mb-3">
+    <label for="genre" class="form-label">Genre</label>
+    <select
+      class="form-select"
+      aria-label="Default select example"
+      name="karya.genre.id"
+      id="genre"
+      required>
+      #{list items:genres, as:'x'} #{if karya.genre.id == x.id}
+      <option value="${x.id}" selected>${x.genre}</option>
+      #{/if} #{else}
+      <option value="${x.id}">${x.genre}</option>
+      #{/else} #{/list}
+    </select>
+    <div id="emailHelp" class="form-text">Pilih salah satu</div>
+  </div>
+  <input type="hidden" name="karya.id" value="${karya.id}" />
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>

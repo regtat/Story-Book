@@ -1,0 +1,43 @@
+#{extends 'layout.html' /} #{set title:'Buat Karya Baru' /}
+
+<h1>Buat Karya Baru</h1>
+<a href="@{KaryaApplication.index()}">Kembali ke view</a>
+<form name="karya" action="@{KaryaApplication.save()}" method="POST">
+  <div class="mb-3">
+    <label for="nama" class="form-label">Judul</label>
+    <input
+      type="text"
+      class="form-control"
+      id="nama"
+      name="karya.judul"
+      required />
+    <div id="emailHelp" class="form-text">Masukkan Judul yang diinginkan!</div>
+  </div>
+  <div class="mb-3">
+    <label for="deskripsi" class="form-label">Deskripsi</label>
+    <textarea
+      class="form-control"
+      placeholder="Leave a comment here"
+      id="deskripsi"
+      name="karya.deskripsi"
+      style="height: 200px"
+      required></textarea>
+    <div id="emailHelp" class="form-text">Masukkan deskripsi!</div>
+  </div>
+  <div class="mb-3">
+    <label for="genre" class="form-label">Genre</label>
+    <select
+      class="form-select"
+      aria-label="Default select example"
+      name="karya.genre.id"
+      id="genre"
+      required>
+      #{list items:genres, as:'x'}
+      <option value="${x.id}">${x.genre}</option>
+      #{/list}
+    </select>
+    <div id="emailHelp" class="form-text">Pilih salah satu</div>
+  </div>
+  <input type="hidden" name="karya.user.id" value="${user.id}" />
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>

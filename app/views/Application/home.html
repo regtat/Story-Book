@@ -1,0 +1,25 @@
+#{extends 'layout.html' /} #{set title:'Home' /}
+
+<!-- Hero -->
+<div class="jumbotron">
+  <h1 class="display-4">
+    #{if name != ""} Halo ${name}, #{/if}#{else} Halo, #{/else} semoga harimu
+    menyenangkan
+  </h1>
+  <h4 class="display-7">
+    Untuk mengubah user menjadi admin pertama, ubah manual di Database, set
+    isAdmin dari yang 0 ke 1
+  </h4>
+  <p class="lead">Bagikan ceritamu di Platform Kami.</p>
+  <hr class="my-4" />
+  <p>Klik button di bawah ini, maka akan diarahkan ke halaman Karya-karya.</p>
+  <p class="lead">
+    <a
+      class="btn btn-primary btn-lg"
+      href="@{KaryaApplication.index()}"
+      role="button"
+      >Lihat Karya</a
+    >
+  </p>
+</div>
+<!-- Hero -->

@@ -1,0 +1,44 @@
+#{extends 'layout.html' /} #{set title:'Tambah Episode Baru' /}
+
+<h1>Tambah Episode Baru</h1>
+<a href="@{KaryaApplication.show(karya.id)}">Kembali ke Karya</a>
+<form
+  name="episode"
+  action="@{EpisodeApplication.save(karya.id)}"
+  method="POST">
+  <div class="mb-3">
+    <label for="no_eps" class="form-label">Nomor Episode</label>
+    <input
+      type="number"
+      class="form-control"
+      id="no_eps"
+      name="episode.no_eps"
+      required />
+    <div id="emailHelp" class="form-text">
+      Masukkan nomor Episode untuk cerita ini!
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="judul" class="form-label">Judul</label>
+    <input
+      type="text"
+      class="form-control"
+      id="judul"
+      name="episode.judul"
+      required />
+    <div id="emailHelp" class="form-text">Masukkan judul yang diinginkan!</div>
+  </div>
+  <div class="mb-3">
+    <label for="deskripsi" class="form-label">Isi Cerita</label>
+    <textarea
+      class="form-control"
+      placeholder="Leave a comment here"
+      id="deskripsi"
+      name="episode.cerita"
+      style="height: 300px"
+      required></textarea>
+    <div id="emailHelp" class="form-text">Buat cerita seindah mungkin!</div>
+  </div>
+  <input type="hidden" name="episode.karya.id" value="${karya.id}" />
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
